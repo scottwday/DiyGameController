@@ -1,0 +1,3 @@
+[submodule "BleHost/lib/BleGamepad"]
+	path = BleHost/lib/BleGamepad
+	url = https://github.com/scottwday/BLE-Gamepad.git
