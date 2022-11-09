@@ -24,7 +24,23 @@ The input from the arduino should be level shifted and protected from anything a
 
 ## Wiring
 
+### Arduino
+- Buttons: Pull-up inputs D2..D9
+- Serial Tx: D1
+
+### nRF52-DK
+- Serial Rx: D0.11
+
 ![w](docs/wiring.png)
+
+## Programming
+
+### Arduino
+- Just use the plain ol [Arduino IDE](https://www.arduino.cc/en/software)
+
+### nRF52-DK
+- Use the [PlatformIO](https://platformio.org/) VSCode extension, all packages should be installed on build based on platformio.ini
+
 
 ## TODO
 
