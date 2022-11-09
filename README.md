@@ -12,3 +12,20 @@ This allows the controller to remain paired to a game (eg, NES emulator on phone
 
 Comms between the nRF board and the Arduino are 2400 baud 8-N-1 serial, where each byte represents 8 buttons.
 The input from the arduino should be level shifted and protected from anything a kid might do to it!
+
+## Hardware
+
+- nRF52-DK (could be ported to other nRF boards or ESP32 supported by Arduino-NimBLE)
+- Arduino Uno (or similar)
+- Level shifter (or just a resistor divider)
+- Breadboard
+- Tact switches
+- Jumper wires
+
+## Wiring
+
+![w](docs/wiring.png)
+
+## TODO
+
+- Add unique IDs to advertised name
