@@ -13,7 +13,7 @@ SoftwareSerialRx::SoftwareSerialRx(uint32_t pin_rx, uint32_t baud, uint32_t tick
 void SoftwareSerialRx::begin(voidFuncPtr onEdge)
 {
     this->last_edge_time = VERY_LONG;
-    pinMode(this->pin_rx, INPUT_PULLUP);
+    pinMode(this->pin_rx, INPUT_PULLDOWN);
     attachInterrupt(this->pin_rx, onEdge, CHANGE);
 }
 
