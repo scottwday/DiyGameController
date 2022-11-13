@@ -77,6 +77,11 @@ void setup()
 
   delay(100);
   Serial.println("Starting Gamepad Service...");
+
+  String name = "Gamepad Bridge ";
+  name += String(NRF_FICR->DEVICEADDR[0] & 0xFFFF, HEX);
+  bleGamepad.deviceName = name.c_str();
+
   bleGamepad.begin();
   bleGamepad.taskServer(&bleGamepad);
   Serial.println("Started Gamepad Service");
