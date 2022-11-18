@@ -14,6 +14,7 @@ SoftwareSerialRx swSerial0(0, RX_BAUD, FREQ_TIMER, []()
 SoftwareSerialRx swSerial1(1, RX_BAUD, FREQ_TIMER, []()
                            { return SERIAL_TIMER->CC[1]; });
 
+BleGamepadConfiguration gamepadConfig = BleGamepadConfiguration();
 BleGamepad bleGamepad("Serial Gamepad Bridge", "Scott Day", 100);
 byte hwButtonsState = 0;
 byte swButtonsState = 0;
@@ -82,7 +83,10 @@ void setup()
   name += String(NRF_FICR->DEVICEADDR[0] & 0xFFFF, HEX);
   bleGamepad.deviceName = name.c_str();
 
-  bleGamepad.begin();
+  gamepadConfig.setAxesMin(0);
+  gamepadConfig.setAxesMax(2);
+
+  bleGamepad.begin(&gamepadConfig);
   bleGamepad.taskServer(&bleGamepad);
   Serial.println("Started Gamepad Service");
 }
@@ -104,8 +108,9 @@ void handleSerialInput()
     if (changed)
     {
       // Handle "thumb stick" on bits 0..3
-      int16_t x = 16384 + ((curSwButtons & (1 << 3)) ? 16383 : 0) - ((curSwButtons & (1 << 0)) ? 16384 : 0);
-      int16_t y = 16384 + ((curSwButtons & (1 << 2)) ? 16383 : 0) - ((curSwButtons & (1 << 1)) ? 16384 : 0);
+      // 0: left, 1: center, 2: right
+      int16_t x = 1 + ((curSwButtons & (1 << 3)) ? 1 : 0) - ((curSwButtons & (1 << 0)) ? 1 : 0);
+      int16_t y = 1 + ((curSwButtons & (1 << 2)) ? 1 : 0) - ((curSwButtons & (1 << 1)) ? 1 : 0);
       bleGamepad.setLeftThumb(x, y);
 
       // Handle buttons on bits 4..7, map to buttons 1..4
